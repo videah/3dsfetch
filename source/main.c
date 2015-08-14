@@ -28,7 +28,8 @@
 
 // Config //
 
-#define HOST_NAME "VideahGams"
+#define USER_NAME "ruairidh"
+#define HOST_NAME "@3ds"
 
 #define TEXT_COLOR COLOR_RED
 
@@ -78,25 +79,29 @@ int main() {
 
 	consoleInit(GFX_TOP, NULL); // Initialize console on top screen.
 
-	int x = 21;
+	int x = 20;
 
 	while (aptMainLoop()) {
 
 		printPos(asciiart, 0, 0);
 
-		printLine(HOST_NAME, "@3ds", x, 8);
+		printLine(USER_NAME, HOST_NAME, x, 6); // username@hostname
 
-		printLine("Placeholder: ", "", x, 10);
+		printLine("OS: ", "3DS System Software", x, 8); // Don't have a better name for this
 
-		printLine("GPU: ", "DMP PICA200 268MHz", 22, 11);
-		printLine("RAM: ", "0MiB / 128MiB", 22, 12);
-		printLine("Placeholder: ", "", x, 13);
-		printLine("Placeholder: ", "", x, 14);
-		printLine("Placeholder: ", "", x, 15);
-		printLine("Placeholder: ", "", x, 16);
-		printLine("Placeholder: ", "", x, 17);
+		printLine("Kernel:  ", osGetKernelVersion(), x, 10); // Doesn't work in emulator, needs testing
 
-		printf(COLOR_CLEAR);
+		printLine("Packages: ", "0", x, 12); // Maybe get number of homebrew somehow?
+
+		printLine("Shell: ", "None", x, 14); // 3DS can't really have a shell but whatever
+
+		printLine("Resolution: ", "800x240 | 320x240", x, 16); // Needs changed for 2DS
+
+		printLine("CPU: ", "4x MPCore & 4x VFPv2", x, 18); // This also needs changed for 2DS
+
+		printLine("Memory: ", "128MiB", x, 20); // Maybe get RAM usage somehow?
+
+		printLine("GPU: ", "DMP PICA200 268MHz", x, 22);
 
 	}
 
