@@ -83,6 +83,12 @@ int main() {
 
 	while (aptMainLoop()) {
 
+		hidScanInput(); // Scan for inputs
+
+		u32 kDown = hidKeysDown(); // Get keys that are down
+
+		if (kDown & KEY_START) break; // Break and return to the Homebrew Menu
+
 		printPos(asciiart, 0, 0);
 
 		printLine(USER_NAME, HOST_NAME, x, 6); // username@hostname
