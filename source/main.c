@@ -24,8 +24,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <3ds.h>
+#include "util.h"
+
+// Config //
 
 #define HOST_NAME "VideahGams"
+
+#define TEXT_COLOR COLOR_RED
+
+///////////
 
 char const *asciiart = 
 "\n\n\n\n\n\n"
@@ -53,6 +60,16 @@ void printPos(char* string, int x, int y) {
 
 	printf(string);
 
+	return 0;
+
+}
+
+void printLine(char* string1, char* string2, int x, int y) {
+
+	printf(TEXT_COLOR); printPos(string1, x, y); printf(COLOR_CLEAR); printf(string2);
+
+	return 0;
+
 }
 
 int main() {
@@ -61,15 +78,25 @@ int main() {
 
 	consoleInit(GFX_TOP, NULL); // Initialize console on top screen.
 
+	int x = 21;
+
 	while (aptMainLoop()) {
 
 		printPos(asciiart, 0, 0);
 
-		printf("\x1b[31m");
+		printLine(HOST_NAME, "@3ds", x, 8);
 
-		printPos(HOST_NAME, 22, 8);
+		printLine("Placeholder: ", "", x, 10);
 
-		printf("\x1b[0m");
+		printLine("GPU: ", "DMP PICA200 268MHz", 22, 11);
+		printLine("RAM: ", "0MiB / 128MiB", 22, 12);
+		printLine("Placeholder: ", "", x, 13);
+		printLine("Placeholder: ", "", x, 14);
+		printLine("Placeholder: ", "", x, 15);
+		printLine("Placeholder: ", "", x, 16);
+		printLine("Placeholder: ", "", x, 17);
+
+		printf(COLOR_CLEAR);
 
 	}
 
