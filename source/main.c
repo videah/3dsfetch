@@ -25,6 +25,34 @@
 #include <stdlib.h>
 #include <3ds.h>
 
+char const *asciiart = 
+"\n\n\n\n\n\n"
+"      ######\n"
+"    ####  ####\n"
+"   #####  #####\n"
+"  ## ##    ## ##\n"
+"  ##          ##\n"
+" ####        ####\n"
+" ####  ####  ####\n"
+" #### ###### ####\n"
+" #### ###### ####\n"
+" ###  ######  ###\n"
+" #     ####     #\n"
+" #  ##########  #\n"
+" ####  #  #  ####\n"
+"  ##   #  #   ## \n"
+"   #          #\n"
+"   ##        ##\n"
+"    ##########\n";
+
+void printPos(char* string, int x, int y) {
+
+	printf("%c[%d;%df",0x1B,y,x);
+
+	printf(string);
+
+}
+
 int main() {
 
 	gfxInitDefault();
@@ -33,7 +61,7 @@ int main() {
 
 	while (aptMainLoop()) {
 
-		printf("Hello World!\n");
+		printPos(asciiart, 0, 0);
 
 	}
 
