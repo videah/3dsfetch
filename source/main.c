@@ -25,11 +25,9 @@
 #include <stdlib.h>
 #include <3ds.h>
 #include "util.h"
+#include "ini.h"
 
 // Config //
-
-#define USER_NAME "ruairidh"
-#define HOST_NAME "@3ds"
 
 #define TEXT_COLOR COLOR_RED
 
@@ -75,11 +73,26 @@ void printLine(char* string1, char* string2, int x, int y) {
 
 int main() {
 
+	ini_t *config = ini_load("config.ini");
+
+	const char *username =		ini_get(config, "config", "username");
+	const char *hostname =		ini_get(config, "config", "hostname");
+	const char *os =			ini_get(config, "config", "os");
+	const char *firmware =		ini_get(config, "config", "firmware");
+	const char *packages =		ini_get(config, "config", "packages");
+	const char *shell = 		ini_get(config, "config", "shell");
+	const char *resolution =	ini_get(config, "config", "resolution");
+	const char *cpu =			ini_get(config, "config", "resolution");
+	const char *memory =		ini_get(config, "config", "memory");
+	const char *gpu =			ini_get(config, "config", "gpu");
+
 	gfxInitDefault();
 
 	consoleInit(GFX_TOP, NULL); // Initialize console on top screen.
 
 	int x = 20;
+
+	printf(asciiart, 0, 0);
 
 	while (aptMainLoop()) {
 
@@ -89,29 +102,30 @@ int main() {
 
 		if (kDown & KEY_START) break; // Break and return to the Homebrew Menu
 
-		printPos(asciiart, 0, 0);
+		printLine(username, hostname, x, 6); // username@hostname
 
-		printLine(USER_NAME, HOST_NAME, x, 6); // username@hostname
+		printLine("OS: ", os, x, 8); // Don't have a better name for this
 
-		printLine("OS: ", "3DS System Software", x, 8); // Don't have a better name for this
+		printLine("Firmware: ", firmware, x, 10); // Detect it somehow?
 
-		printLine("Kernel:  ", osGetKernelVersion(), x, 10); // Doesn't work in emulator, needs testing
+		printLine("Packages: ", packages, x, 12); // Maybe get number of homebrew somehow?
 
-		printLine("Packages: ", "0", x, 12); // Maybe get number of homebrew somehow?
+		printLine("Shell: ", shell, x, 14); // 3DS can't really have a shell but whatever
 
-		printLine("Shell: ", "None", x, 14); // 3DS can't really have a shell but whatever
+		printLine("Resolution: ", resolution, x, 16); // Needs changed for 2DS
 
-		printLine("Resolution: ", "800x240 | 320x240", x, 16); // Needs changed for 2DS
+		printLine("CPU: ", cpu, x, 18); // This also needs changed for 2DS
 
-		printLine("CPU: ", "4x MPCore & 4x VFPv2", x, 18); // This also needs changed for 2DS
+		printLine("Memory: ", memory, x, 20); // Maybe get RAM usage somehow?
 
-		printLine("Memory: ", "128MiB", x, 20); // Maybe get RAM usage somehow?
-
-		printLine("GPU: ", "DMP PICA200 268MHz", x, 22);
+		printLine("GPU: ", gpu, x, 22);
 
 	}
 
 	gfxExit();
+
+	ini_free(config);
+	
 	return 0;
 
 }
