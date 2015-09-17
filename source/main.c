@@ -82,7 +82,7 @@ int main() {
 	const char *packages =		ini_get(config, "config", "packages");
 	const char *shell = 		ini_get(config, "config", "shell");
 	const char *resolution =	ini_get(config, "config", "resolution");
-	const char *cpu =			ini_get(config, "config", "resolution");
+	const char *cpu =			ini_get(config, "config", "cpu");
 	const char *memory =		ini_get(config, "config", "memory");
 	const char *gpu =			ini_get(config, "config", "gpu");
 
